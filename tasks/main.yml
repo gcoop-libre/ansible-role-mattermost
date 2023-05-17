@@ -1,0 +1,83 @@
+---
+- name: ensure mattermost group
+  group:
+    name: mattermost
+    state: present
+
+- name: ensure mattermost user
+  user:
+    name: mattermost
+    group: mattermost
+    system: yes
+
+- name: ensure data directory exist
+  file:
+    path: "{{ mattermost_data_dir }}"
+    state: directory
+
+- name: download archive from mattermost website
+  get_url:
+    url: https://releases.mattermost.com/{{ mattermost_version }}/mattermost-team-{{ mattermost_version }}-linux-amd64.tar.gz
+    dest: /tmp/
+
+- name: check if mattermost service is present
+  shell: systemctl is-enabled mattermost
+  register: mattermost_service_check
+  changed_when: false
+  failed_when: false
+
+- name: stop mattermost service
+  service:
+    name: mattermost
+    state: stopped
+  when: "'enabled' in mattermost_service_check.stdout"
+
+- name: check if mattermost directory exists
+  stat:
+    path: "{{ mattermost_destination }}/mattermost"
+  register: mattermost_directory
+
+- name: list files to remove
+  shell: 'find mattermost/ mattermost/client/ -mindepth 1 -maxdepth 1 \! \( -type d \( -path mattermost/client -o -path mattermost/client/plugins -o -path mattermost/config -o -path mattermost/logs -o -path mattermost/plugins -o -path mattermost/data \) -prune \)'
+  args:
+    chdir: "{{ mattermost_destination }}"
+  register: files_to_remove
+  when: mattermost_directory.stat.exists
+
+- name: remove old version files
+  file:
+    path: "{{ mattermost_destination }}/{{ item }}"
+    state: absent
+  with_items: "{{ files_to_remove.stdout_lines }}"
+  when: mattermost_directory.stat.exists
+
+- name: unpack mattermost archive
+  unarchive:
+    src: /tmp/mattermost-team-{{ mattermost_version }}-linux-amd64.tar.gz
+    dest: "{{ mattermost_destination }}"
+    copy: no
+    owner: mattermost
+    group: mattermost
+    mode: g+w
+  args:
+    creates: "{{ mattermost_destination }}/mattermost/bin/platform"
+
+- name: copy config file
+  template:
+    src: config.json.j2
+    dest: "{{ mattermost_destination }}/mattermost/config/config.json"
+
+- name: create systemd unit file
+  template:
+    src: mattermost.service.j2
+    dest: /lib/systemd/system/mattermost.service
+
+- name: load the new unit
+  systemd:
+    daemon_reload: yes
+
+- name: start mattermost service
+  service:
+    name: mattermost
+    state: started
+    enabled: yes

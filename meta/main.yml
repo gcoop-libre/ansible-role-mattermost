@@ -1,0 +1,10 @@
+---
+galaxy_info:
+  role_name: mattermost
+  description: Install mattermost server
+  company: gcoop
+  license: GPL-2.0-or-later
+  min_ansible_version: 2.9
+  author: Ariel George
+dependencies:
+  - src: geerlingguy.postgresql

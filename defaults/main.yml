@@ -1,0 +1,29 @@
+mattermost_version: 7.8.5
+mattermost_data_dir: /data/mattermost/data
+mattermost_destination: /opt
+mattermost_postgres_user: mattermost
+mattermost_postgres_password: secret
+mattermost_postgres_db: mattermost
+
+#
+# Mattermost settings, see README.md.
+
+# mattermost_url: "https://mattermost.example.com"
+
+# mattermost_site_name: "My Mattermost"
+
+# mattermost_brand_text: ""
+
+# mattermost_email: no-reply@example.com
+
+# mattermost_smtp_user: no-reply@example.com
+
+# mattermost_smtp_password: secret
+
+# mattermost_smtp_server: smtp.example.com
+
+# mattermost_smtp_port: 587
+
+# mattermost_smtp_security: STARTTLS
+
+# mattermost_creation_domains: []
