@@ -90,5 +90,9 @@ mattermost_creation_domains: []
 
 A list of mail domains that will be allowed to create users.
 
+## Dependencies
+
+* [`geerlingguy.postgresql`][1]
+
 [0]: https://github.com/mattermost/mattermost-server
 [1]: https://github.com/geerlingguy/ansible-role-postgresql/
