@@ -51,6 +51,12 @@ mattermost_url: https://mattermost.example.com
 The mattermost url.
 
 ```yaml
+mattermost_listen_address: ":8065"
+```
+
+The address and port to which to bind and listen (the default binds to all network interfaces).
+
+```yaml
 mattermost_site_name: ""
 ```
 
