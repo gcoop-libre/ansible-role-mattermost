@@ -8,6 +8,8 @@ mattermost_postgres_db: mattermost
 #
 # Mattermost settings, see README.md.
 
+mattermost_config_file_template: "default_config_template.json.j2"
+
 # mattermost_url: "https://mattermost.example.com"
 
 # mattermost_site_name: "My Mattermost"

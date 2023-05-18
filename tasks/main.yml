@@ -64,7 +64,7 @@
 
 - name: copy config file
   template:
-    src: config.json.j2
+    src: "{{ mattermost_config_file_template }}"
     dest: "{{ mattermost_destination }}/mattermost/config/config.json"
 
 - name: create systemd unit file

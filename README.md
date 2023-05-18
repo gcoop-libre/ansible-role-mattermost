@@ -32,7 +32,17 @@ Data directory where mattermost stores plugins, files, custom emojis, etc..
 
 ### Mattermost settings
 
-The following variables are used to configure the Mattermost server.
+The config file template packaged with the role is very generic and only some
+basic settings can be configured with the role variables.
+
+If that's not enough you can replace the default template with your own:
+
+* create a `templates` directory at the same level as your playbook
+* create a `templates/myconfig.json.j2` file (don't use the name of the default template, `default_config_template.json.j2`)
+* set the `mattermost_config_file_template` to `myconfig.json.j2` or the name of your file
+
+If you use the default template you can use the following variables to change
+some basic settings.
 
 ```yaml
 mattermost_url: https://mattermost.example.com
