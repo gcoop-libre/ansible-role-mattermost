@@ -4,6 +4,7 @@ mattermost_destination: /opt
 mattermost_postgres_user: mattermost
 mattermost_postgres_password: secret
 mattermost_postgres_db: mattermost
+mattermost_service_name: mattermost
 
 #
 # Mattermost settings, see README.md.

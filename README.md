@@ -30,6 +30,12 @@ mattermost_data_dir: /data/mattermost/data
 
 Data directory where mattermost stores plugins, files, custom emojis, etc..
 
+```yaml
+mattermost_service_name: mattermost
+```
+
+The name of the systemd unit file.
+
 ### Mattermost settings
 
 The config file template packaged with the role is very generic and only some

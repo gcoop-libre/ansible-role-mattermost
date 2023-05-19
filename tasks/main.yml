@@ -70,7 +70,7 @@
 - name: create systemd unit file
   template:
     src: mattermost.service.j2
-    dest: /lib/systemd/system/mattermost.service
+    dest: /lib/systemd/system/{{ mattermost_service_name }}.service
 
 - name: load the new unit
   systemd:
